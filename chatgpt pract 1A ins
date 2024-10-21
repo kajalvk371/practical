@@ -1,0 +1,19 @@
+def caesar_cipher(text, shift):
+    result = ""
+    for char in text:
+        if char.isalpha():
+            offset = 65 if char.isupper() else 97
+            result += chr((ord(char) - offset + shift) % 26 + offset)
+        else:
+            result += char  # Keep punctuation and spaces unchanged
+    return result
+
+# Get input from user
+plaintext = input("Enter the plaintext: ")
+shift = int(input("Enter the shift (an integer): "))
+
+# Encrypt the plaintext using Caesar cipher
+encrypted_text = caesar_cipher(plaintext, shift)
+
+# Print the results
+print("Encrypted text:", encrypted_text)

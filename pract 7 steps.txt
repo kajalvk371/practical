@@ -1,0 +1,20 @@
+Practical No. 7 - Web security with SSL/TLS
+Configure and implement secure web communication using SSL/TLS protocols, including certificate management and secure session establishment.
+Theory - SSL/TLS stands for secure sockets layer and transport layer security. 
+It is a protocol or communication rule that allows computer systems to talk to each other on the internet safely. 
+SSL/TLS certificates allow web browsers to identify and establish encrypted network connections to web sites using the SSL/TLS protocol.
+
+Open windows menu.
+
+Search Internet options in the search bar and open it.
+
+
+Now go to the Advanced tab.
+
+Scroll down to the Security category.
+
+Now check the boxes for your SSL/TLS version.
+
+Click OK.
+Restart the browser / PC.
+

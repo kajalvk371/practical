@@ -1,0 +1,43 @@
+Practical No. 6 - IP Security (IPsec) Configuration :
+Aim: Configure IPsec on network devices to provide secure communication and protect against unauthorized access and attacks.
+
+Configure IPsec on network devices to provide secure communication and protect against unauthorized access and attacks.
+
+Select Open Network and Sharing Center. Or, if using Windows 10 version 1709 or newer, select Open Network & Internet settings, then click Network and Sharing Center.
+
+
+Click Set up a new connection or network.
+
+Select Connect to a workplace and click Next.
+
+
+Click Use my Internet connection (VPN).
+
+
+ Enter Your VPN Server IP in the Internet address field. (www.vpngate.net) 
+
+Enter anything you like in the Destination name field, and then click Create.
+
+Return to Network and Sharing Center. On the left, click Change adapter settings.
+
+
+
+
+
+
+Right-click on the new VPN entry and choose Properties.
+
+Click the Security tab. Select Layer 2 Tunneling Protocol with IPsec (L2TP/IPSec) for the type of VPN.
+Click Allow these protocols. Check the Challenge Handshake Authentication Protocol (CHAP) and Microsoft CHAP Version 2 (MS-CHAP v2) checkboxes.
+
+Click Advanced settings.
+
+Select Use preshared key for authentication and enter Your VPN IPsec PSK for the key.
+
+Click OK to close the Advanced settings.
+Click OK to save the VPN connection details.
+
+
+ Got Connected
+
+

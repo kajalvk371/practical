@@ -1,0 +1,22 @@
+Practical No. 8 - Intrusion Detection System
+Set up and configure an intrusion detection system (IDS) to monitor network traffic and detect potential security breaches or malicious activities.
+
+Steps on configuring and intrusion detection -
+Download Snort from the Snort.org website. (http://www.snort.org/snort downloads)
+Download Rules (https://www.snort.org/snort-rules). You must register to get the rules. (You should download these often)
+Double click on the .exe to install snort. This will install snort in the "C:\Snort" folder. It is important to have WinPcap (https://www.winpcap.org/install/) installed
+Extract the Rules file. You will need WinRAR for the .gz file.
+Copy all files from the "rules" folder of the extracted folder. Now paste the rules into "C:\Snort\rules" folder.
+Copy "snort.conf" file from the "etc" folder of the extracted folder. You must paste it into "C:\Snort\etc" folder. Overwrite any existing file. Remember if you modify your snort.conf file and download a new file, you must modify it for Snort to work.
+Open a command prompt (cmd.exe) and navigate to folder "C:\Snort\bin" folder. (at the Prompt, type cd\snort\bin)
+To start (execute) snort in sniffer mode use the following command: snort -dev -i 3. 	-i indicates the interface number. You must pick the correct interface number. In my case, it is 3. -dev is used to run snort to capture packets on your network.
+To check the interface list use the following command: snort -W
+Finding an interface -
+You can tell which interface to use by looking at the index number and finding Microsoft. As you can see in the above example, the other interfaces are for VMWare. My interface is 3.
+
+To run snort in IDS mode, you will need to configure the file “snort.conf” according to your network environment.
+To specify the network address that you want to protect in the snort.conf file, look for the following line. var HOME_NET 192.168.1.0/24 (You will normally see any here)
+You may also want to set the address of DNS_SERVERS, if you have some on your network. Example - example snort
+Change the RULE_PATH variable to the path of the rules folder.
+var RULE_PATH c:\snort\rules
+path to rules

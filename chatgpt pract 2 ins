@@ -1,0 +1,38 @@
+import random
+import math
+
+def is_prime(num):
+    for i in range(2, int(math.sqrt(num)) + 1):
+        if num % i == 0: return False
+    return num > 1
+
+def generate_prime(bits):
+    while True:
+        num = random.getrandbits(bits)
+        if is_prime(num): return num
+
+def mod_inverse(a, m):
+    m0, x0, x1 = m, 0, 1
+    while a > 1:
+        q, m, a = a // m, a % m, m
+        x0, x1 = x1 - q * x0, x0
+    return x1 % m0
+
+def generate_keypair(bits):
+    p, q = generate_prime(bits), generate_prime(bits)
+    n, phi, e = p * q, (p - 1) * (q - 1), 65537
+    d = mod_inverse(e, phi)
+    return (n, e), (n, d)
+
+def encrypt(message, public_key):
+    return [pow(ord(char), public_key[1], public_key[0]) for char in message]
+
+def decrypt(ciphertext, private_key):
+    return ''.join(chr(pow(char, private_key[1], private_key[0])) for char in ciphertext)
+
+if __name__ == "__main__":
+    public_key, private_key = generate_keypair(8)  # Short key for demo
+    plaintext = input("Enter plaintext: ")
+    ciphertext = encrypt(plaintext, public_key)
+    print("Encrypted:", ciphertext)
+    print("Decrypted:", decrypt(ciphertext, private_key))

@@ -1,0 +1,27 @@
+Practical No. 10 - Firewall Configuration and Rule-based Filtering
+Configure and test firewall rules to control network traffic, filter packets based on specified criteria, and protect network resources from unauthorized access.
+
+Start → Control Panel → Windows firewall → Advanced settings → 
+
+
+Left hand side of the window shows a list of rules. From the list, select Inbound Rules.
+
+
+Then, from right pane select option “New Rule”
+
+
+It will open the ‘New Inbound Rule Wizard’ window.
+From it, select ‘Port’  as the new Rule Type and click Next.
+
+
+Select the option “TCP” and in the field ‘Specific local ports’ enter ‘80’.
+Click Next to continue.
+
+Next, select ‘Block the connection’ as the Action and click Next.
+
+Later, select all the profiles available for different types of connections (Domain, Private and Public) and Click Next to continue.
+
+Enter the name of your choice to the new rule ‘block suspicious ports’. Adding description for the same rule is optional.
+
+Finally, click the Finish button to configure settings.
+

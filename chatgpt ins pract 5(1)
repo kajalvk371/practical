@@ -1,0 +1,12 @@
+if __name__ == '__main__':
+    P, G = 23, 9
+    a, b = 4, 6
+
+    x = pow(G, a, P)  # Alice's public key
+    y = pow(G, b, P)  # Bob's public key
+
+    ka = pow(y, a, P)  # Shared secret for Alice
+    kb = pow(x, b, P)  # Shared secret for Bob
+
+    print(f'P: {P}, G: {G}, Alice: {a}, Bob: {b}')
+    print(f'Alice\'s secret key: {ka}, Bob\'s secret key: {kb}')

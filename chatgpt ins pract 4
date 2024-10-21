@@ -1,0 +1,29 @@
+import hashlib
+import rsa
+
+# Generate RSA key pair
+public_key, private_key = rsa.newkeys(512)
+
+# Create a digital signature
+def create_signature(private_key, message):
+    return rsa.sign(hashlib.sha256(message.encode()).digest(), private_key, 'SHA-256')
+
+# Verify a digital signature
+def verify_signature(public_key, message, signature):
+    try:
+        rsa.verify(hashlib.sha256(message.encode()).digest(), signature, public_key)
+        return True
+    except rsa.VerificationError:
+        return False
+
+# Example usage
+message = input("Enter the message: ")
+signature = create_signature(private_key, message)
+print("Digital Signature (hex):", signature.hex())
+
+if input("Verify the signature? (yes/no): ").lower() == 'yes':
+    sig_input = bytes.fromhex(input("Enter the signature (hex): "))
+    if verify_signature(public_key, message, sig_input):
+        print("Valid signature.")
+    else:
+        print("Invalid signature.")

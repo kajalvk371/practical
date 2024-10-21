@@ -1,0 +1,66 @@
+Practical No. 3 - Message Authentication Codes:
+Implement algorithms to generate and verify message authentication codes (MACs) for ensuring data integrity and authenticity.
+
+Message Authentication Codes (MACs) using the HMAC (Hash-based Message Authentication Code) algorithm. HMAC is a widely used cryptographic hash function-based MAC that ensures data integrity and authenticity.
+
+Message Authentication Code (MAC):
+MAC is a technique used to ensure the integrity and authenticity of messages exchanged between two parties. It involves the use of a secret key and a cryptographic hash function to generate a tag or code that can be appended to the message. The receiver can verify the integrity and authenticity of the message by recomputing the MAC using the same key and hash function and comparing it with the received MAC.
+MAC can be implement using various algorithms, we consider MD5 and SHA1
+
+MD5 Algorithm:
+MD5 (Message Digest Algorithm 5) is a widely used cryptographic hash function. Although it has been widely used historically, it is now considered to have vulnerabilities and is not recommended for security-critical applications. Nonetheless, it serves as an educational example for understanding MAC and cryptographic hash functions.
+
+MAC Generation Process:
+To generate a MAC using the MD5 algorithm, follow these steps:
+
+Both the sender and receiver must agree on a secret key, K, which is known only to them.
+Concatenate the message, M, and the secret key, K: ConcatenatedData = M || K (|| denotes concatenation).
+Apply the MD5 algorithm to the ConcatenatedData to obtain the MAC: MAC = MD5(ConcatenatedData).
+MAC Verification Process:
+
+To verify the integrity and authenticity of a received message using the MAC, follow these steps:
+
+Receive the message, M, and the MAC, MAC.
+Concatenate the received message, M, with the secret key, K: ConcatenatedData = M || K.
+Apply the MD5 algorithm to the ConcatenatedData to compute the recalculated MAC: RecalculatedMAC = MD5(ConcatenatedData).
+Compare the RecalculatedMAC with the received MAC. If they match, the message is considered authentic and intact.
+
+Code:-
+
+import hashlib
+import hmac
+
+def generate_mac(key, message):
+    # Encode the key and message to bytes (if not already)
+    key = key.encode('utf-8')
+    message = message.encode('utf-8')
+
+    # Calculate the HMAC using SHA-256 as the hash function
+    mac = hmac.new(key, message, hashlib.sha256).hexdigest()
+    return mac
+
+def verify_mac(key, message, mac_to_verify):
+    # Encode the key and message to bytes (if not already)
+    key = key.encode('utf-8')
+    message = message.encode('utf-8')
+
+    # Calculate the HMAC for the message using the provided key
+    calculated_mac = hmac.new(key, message, hashlib.sha256).hexdigest()
+
+    # Compare the calculated MAC with the provided MAC for verification
+    return hmac.compare_digest(calculated_mac, mac_to_verify)
+
+# Example usage
+key = input("Enter the secret key: ")
+message = input("Enter the message: ")
+
+# Generate MAC
+mac = generate_mac(key, message)
+print("Generated MAC:", mac)
+
+# Verify MAC
+mac_to_verify = input("Enter the MAC to verify: ")
+if verify_mac(key, message, mac_to_verify):
+    print("MAC is valid. The message is authentic.")
+else:
+    print("MAC is invalid. The message may have been tampered with.")

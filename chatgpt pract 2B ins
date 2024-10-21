@@ -1,0 +1,57 @@
+def generate_key_table(key):
+    key = key.upper().replace("J", "I")
+    key = ''.join(sorted(set(key), key=lambda x: key.index(x)))  # Remove duplicates while preserving order
+    alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ"
+    key_table = key + ''.join([c for c in alphabet if c not in key])
+    return [key_table[i:i+5] for i in range(0, 25, 5)]
+
+def format_message(message):
+    message = message.upper().replace("J", "I")
+    formatted = ""
+    i = 0
+    while i < len(message):
+        formatted += message[i]
+        if i + 1 < len(message) and message[i] == message[i + 1]:
+            formatted += 'X'  # Insert 'X' between duplicate letters
+        elif i + 1 < len(message):
+            formatted += message[i + 1]
+            i += 1
+        i += 1
+    return formatted + 'X' if len(formatted) % 2 != 0 else formatted  # Add 'X' if odd length
+
+def find_position(char, key_table):
+    for r in range(5):
+        for c in range(5):
+            if key_table[r][c] == char:
+                return r, c
+
+def playfair_encrypt(plaintext, key_table):
+    ciphertext = ""
+    for i in range(0, len(plaintext), 2):
+        a, b = plaintext[i], plaintext[i + 1]
+        row_a, col_a = find_position(a, key_table)
+        row_b, col_b = find_position(b, key_table)
+        
+        if row_a == row_b:  # Same row
+            ciphertext += key_table[row_a][(col_a + 1) % 5]
+            ciphertext += key_table[row_b][(col_b + 1) % 5]
+        elif col_a == col_b:  # Same column
+            ciphertext += key_table[(row_a + 1) % 5][col_a]
+            ciphertext += key_table[(row_b + 1) % 5][col_b]
+        else:  # Rectangle swap
+            ciphertext += key_table[row_a][col_b]
+            ciphertext += key_table[row_b][col_a]
+    return ciphertext
+
+def main():
+    key = input("Enter the key: ")
+    message = input("Enter the message: ")
+    
+    key_table = generate_key_table(key)
+    formatted_message = format_message(message)
+    encrypted_message = playfair_encrypt(formatted_message, key_table)
+
+    print("Encrypted Message:", encrypted_message)
+
+if __name__ == "__main__":
+    main()
